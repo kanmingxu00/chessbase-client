@@ -1,0 +1,131 @@
+.Board {
+    margin: 60px;
+    display: flex;                  /* establish flex container */
+    flex-direction: row;            /* default value; can be omitted */
+    flex-wrap: nowrap;              /* default value; can be omitted */
+    /* justify-content: space-between; */
+}
+
+.Left {
+    float: left;
+}
+
+.ChessBoard {
+    border: 3px solid black;
+    padding-bottom: 0px;
+}
+
+.ControlBoard {
+    margin-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.Controls {
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    margin-left: 20px;
+    border-color: black;
+    border-width: 1px;
+    border: 3px solid #f6f6f6;
+    margin-top: 240px;
+    padding: 10px;
+    height: 300px;
+    background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+}
+
+.myButton {
+    margin-bottom:15px;
+    min-width: 100%;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+    font-family: 'Open Sans', sans-serif;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+.TextBox {
+    min-width: 93%;
+    padding: 0;
+    height: 30px;
+    position: relative;
+    left: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    outline: none;
+    border: 2px solid #cdcdcd;
+    border-color: rgba(0, 0, 0, .15);
+    border-radius:4px;
+    background-color: white;
+    font-size: 16px;
+}
+
+.DropDown {
+    font-family: 'Open Sans', sans-serif;
+    color:#666666;
+}
+
+.myButton2 {
+    margin-top:15px;
+    min-width: 100%;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+    font-family: 'Open Sans', sans-serif;
+}
+.myButton2:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+.myButton2:active {
+	position:relative;
+	top:1px;
+}
+
+.GameInfo {
+    display:block;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    margin-left: 20px;
+    
+    border-color: black;
+    border-width: 1px;
+
+    height: 540px;
+    max-height: 540px;
+    width: 100%;
+    border: 3px solid #f6f6f6;
+    padding: 10px;
+    background:linear-gradient(to bottom, #ffffff 5%);
+    overflow-y: auto
+}
+
+.h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 275px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
+
+.h2 { color: #111; font-family: 'Open Sans', sans-serif; font-size: 30px; font-weight: 300; line-height: 32px; margin: 0 0 72px; text-align: center; }
+.h3 { color: #111; font-family: 'Open Sans', sans-serif; font-size: 30px; font-weight: 300; line-height: 32px; margin: 0 0 0px; text-align: center; }

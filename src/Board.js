@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 
+import "./Board.css";
 import Chessboard from 'chessboardjsx';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import StickyHeadTable from './StickyHeadTable';
 const Chess = require("chess.js");
-
 
 export default class Board extends Component {
 
@@ -14,6 +15,7 @@ export default class Board extends Component {
             fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
         }
         this.inputFen = "";
+        this.games = [{}];
         this.whiteMove = true;
         this.deleteNextSwitch = false;
         this.deleteNext = this.deleteNext.bind(this);
@@ -23,7 +25,7 @@ export default class Board extends Component {
         this.insertFen = this.insertFen.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this._onSelect = this._onSelect.bind(this);
-        this.printFen = this.printFen.bind(this);
+        this.getFenInfo = this.getFenInfo.bind(this);
     }
 
     componentDidMount() {
@@ -82,50 +84,100 @@ export default class Board extends Component {
     }
 
     _onSelect = (event) => {
-        if (event.value == "White to Move") {
+        if (event.value === "White to Move") {
             this.whiteMove = true;
         } else {
             this.whiteMove = false;
         }
     }
 
-    printFen = () => {
+    getFenInfo = () => {
         let firstSpace = this.state.fen.indexOf(" ");
         let sub = this.state.fen.substr(0, firstSpace);
-        let nice = this.whiteMove ? "w" : "b"
-        console.log(sub + " " + nice);   
+        let whiteMoveChar = this.whiteMove ? "White" : "Black"
+        console.log(sub + " " + whiteMoveChar);   
+        let request = new XMLHttpRequest();
+        request.open('GET', "http://localhost:5000/positionQuery", true);
+        request.setRequestHeader('position', sub);
+        request.setRequestHeader('nextMove', whiteMoveChar);
+        request.onload = function() {
+            if (request.status !== 200) { // analyze HTTP status of the response
+                alert(`Error ${request.status}: ${request.statusText}`); // e.g. 404: Not Found
+                this.setState({
+                    games: [],
+                })
+            } else { // show the result
+                let json = JSON.parse(request.response);
+                this.setState({
+                    games: json,
+                });
+            }
+        }.bind(this);
+        request.onerror = function() {
+            this.setState({
+                games: [],
+            })
+        }.bind(this);
+        request.send();
     }
 
     render() {
         return (
-            <div>
-                <Chessboard
-                    position={this.state.fen}
-                    onDrop={this.onDrop}
-                    dropOffBoard="trash"
-                    onPieceClick={this.onPieceClick}
-                    onSquareClick={this.onSquareClick}
-                    sparePieces={false} // false for now, maybe if there's time
-                />
-                <button onClick={this.resetBoard}>"Reset Board"</button>
-                <button onClick={this.deleteNext}>"DeleteNextClick"</button>
-                <input type="text" onChange={this.insertFen} />
-                <input
-                    type="button"
-                    value="Import FEN position"
-                    onClick={this.handleClick}
-                />
-                <Dropdown
-                    options={['White to Move', 'Black to Move']}
-                    onChange={this._onSelect}
-                    value={'White to Move'}
-                    placeholder="Select an option"
-                />
-                <input
-                    type="button"
-                    value="Print fen"
-                    onClick={this.printFen}
-                />
+            <div className="Board">
+                <div className="ChessBoard">
+                    <Chessboard
+                        position={this.state.fen}
+                        onDrop={this.onDrop}
+                        dropOffBoard="trash"
+                        onPieceClick={this.onPieceClick}
+                        onSquareClick={this.onSquareClick}
+                        sparePieces={false} // false for now, maybe if there's time
+                    />
+                </div>
+                <div className="Controls">
+                    <div className="ControlBoard">Control Board:</div>
+                    <div>
+                        <button className="myButton" onClick={this.resetBoard}>Reset Board</button>
+                    </div>
+                    <div>
+                        <button className="myButton"  onClick={this.deleteNext}>Delete Next Click</button>
+                    </div>
+                    <div>
+                        <input className="TextBox" type="text" onChange={this.insertFen} />
+                    </div>
+                    <div>
+                        <input
+                            className="myButton" 
+                            type="button"
+                            value="Import FEN position"
+                            onClick={this.handleClick}
+                        />
+                    </div>
+                    
+                    
+                    <Dropdown
+                        className="DropDown"
+                        options={['White to Move', 'Black to Move']}
+                        onChange={this._onSelect}
+                        value={'White to Move'}
+                        placeholder="Select an option"
+                    />
+
+                    <input
+                        className="myButton2"
+                        type="button"
+                        value="Get Games"
+                        onClick={this.getFenInfo}
+                    />  
+                </div>
+                <div className="GameInfo">
+                    {this.games.length === 0 ?
+                    <h2 className="h2">No Games Available</h2>:
+                    <div><h2 className="h3">Games Available:</h2>
+                    <StickyHeadTable />
+                    </div>}
+                </div>
+                
             </div>
         )
     }

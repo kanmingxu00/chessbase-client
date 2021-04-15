@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -10,21 +9,25 @@ import {
 import Board from './Board'
 import Home from './Home'
 import Upload from './Upload'
+import PlayerEdit from './PlayerEdit'
 
 function App() {
   return (
-    <Router>
+    <Router className="Flex">
       <div>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+          <ul className="List">
+            <li className="Objects">
+              <Link className="Link" to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/searchPos">Search position</Link>
+            <li className="Objects">
+              <Link className="Link" to="/searchPos">Search position</Link>
             </li>
-            <li>
-              <Link to="/uploadGames">Upload Games</Link>
+            <li className="Objects">
+              <Link className="Link" to="/uploadGames">Upload Games</Link>
+            </li>
+            <li className="Objects">
+              <Link className="Link" to="/playerEdit">Edit Players</Link>
             </li>
           </ul>
         </nav>
@@ -37,6 +40,9 @@ function App() {
           </Route>
           <Route path="/uploadGames">
             <Upload />
+          </Route>
+          <Route path="/playerEdit">
+            <PlayerEdit />
           </Route>
           <Route path="/">
             <Home />
