@@ -11,8 +11,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 130 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+    { id: 'Game', label: 'Game', minWidth: 130 },
+    { id: 'Player1', label: 'ISO\u00a0Code', minWidth: 100 },
+    { id: 'Player2', label: 'ISO\u00a0Code', minWidth: 100 },
     {
       id: 'population',
       label: 'Population',
@@ -22,14 +23,14 @@ const columns = [
     },
     {
       id: 'size',
-      label: 'Size\u00a0(km\u00b2)',
+      label: 'Nice\u00a0(km\u00b2)',
       minWidth: 130,
       align: 'right',
       format: (value) => value.toLocaleString('en-US'),
     },
     {
       id: 'density',
-      label: 'Density',
+      label: 'Nice',
       minWidth: 130,
       align: 'right',
       format: (value) => value.toFixed(2),
@@ -38,7 +39,7 @@ const columns = [
   
   function createData(name, code, population, size) {
     const density = population / size;
-    return { name, code, population, size, density };
+    return { name: name, code: code, population: population, size: size, density: density };
   }
   
   const rows = [
