@@ -17,7 +17,7 @@ export default class Board extends Component {
         this.inputFen = "";
         this.inputName = "";
         this.inputSomeName = "";
-        this.inputOpeningFen = "";
+        this.inputMainlineName = "";
         this.games = [{}];
         this.whiteMove = true;
         this.deleteNextSwitch = false;
@@ -26,7 +26,7 @@ export default class Board extends Component {
         this.resetBoard = this.resetBoard.bind(this);
         this.onSquareClick = this.onSquareClick.bind(this);
         this.insertFen = this.insertFen.bind(this);
-        this.insertOfficialFen = this.insertOfficialFen.bind(this);
+        this.insertMainlineName = this.insertMainlineName.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this._onSelect = this._onSelect.bind(this);
         this.getFenInfo = this.getFenInfo.bind(this);
@@ -82,9 +82,9 @@ export default class Board extends Component {
         this.inputFen = e.target.value;
     }
 
-    // Changes inputOpeningFen to match text box
-    insertOfficialFen = (e) => {
-        this.inputOpeningFen = e.target.value;
+    // Changes mainline Name
+    insertMainlineName = (e) => {
+        this.inputMainlineName = e.target.value;
     }
 
     // Changes inputName to match
@@ -113,18 +113,14 @@ export default class Board extends Component {
         let openingFen = "";
         let colorMove = "";
         let openingName = this.inputName;
-        if (this.inputOpeningFen === "") {
-            let firstSpace = this.state.fen.indexOf(" ");
-            openingFen = this.state.fen.substr(0, firstSpace);
-            colorMove = this.whiteMove ? "w" : "b"
-        } else {
-            let firstSpace = this.inputOpeningFen.indexOf(" ");
-            openingFen = this.inputOpeningFen.substr(0, firstSpace);
-            colorMove = this.inputOpeningFen.substr(firstSpace+1, 1);
-        }
+        let mainlineName = this.inputMainlineName;
+        let firstSpace = this.state.fen.indexOf(" ");
+        openingFen = this.state.fen.substr(0, firstSpace);
+        colorMove = this.whiteMove ? "w" : "b"
         console.log(openingFen);
         console.log(colorMove);
         console.log(openingName);
+        console.log(mainlineName);
         // TODO:
     }
 
@@ -209,10 +205,10 @@ export default class Board extends Component {
                         </div>
 
                         <div>
-                            <input className="TextBox" type="text" placeholder={"FEN (use board if empty)"} onChange={this.insertOfficialFen} />
+                            <input className="TextBox" type="text" placeholder={"Insert Opening Name"} onChange={this.insertOpeningName} />
                         </div>
                         <div className="OpeningName">
-                            <input className="HalfTextBox" type="text" placeholder={"Name"} onChange={this.insertOpeningName} />
+                            <input className="HalfTextBox" type="text" placeholder={"Mainline Name"} onChange={this.insertMainlineName} />
                             <div>
                                 <input
                                     className="myButton" 
