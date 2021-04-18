@@ -7,18 +7,22 @@ import 'react-dropdown/style.css';
 import StickyHeadTable from './StickyHeadTable';
 const Chess = require("chess.js");
 
+const rows = [
+    {Game: 1, Player1: "kan", Player2: "rich", Player1Rank: "gm", Player2Rank: "trash", Winner: "kan", TimeControl: "years"}
+  ];
+
 export default class Board extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+            fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+            games: [],
         }
         this.inputFen = "";
         this.inputName = "";
         this.inputSomeName = "";
         this.inputMainlineName = "";
-        this.games = [{}];
         this.whiteMove = true;
         this.deleteNextSwitch = false;
         this.deleteNext = this.deleteNext.bind(this);
@@ -157,10 +161,10 @@ export default class Board extends Component {
             if (request.status !== 200) { // analyze HTTP status of the response
                 alert(`Error ${request.status}: ${request.statusText}`); // e.g. 404: Not Found
                 this.setState({
-                    games: [],
+                    games: [], // TODO;
                 })
             } else { // show the result
-                let json = JSON.parse(request.response);
+                let json = JSON.parse(request.response); // TODO: convert json input to games format
                 this.setState({
                     games: json,
                 });
@@ -258,10 +262,10 @@ export default class Board extends Component {
                     </div>  
                 </div>
                 <div className="GameInfo">
-                    {this.games.length === 0 ?
+                    {this.state.games.length === 0 ?
                     <h2 className="h2">No Games Available</h2>:
                     <div><h2 className="h3">Games Available:</h2>
-                    <StickyHeadTable />
+                    <StickyHeadTable rows={rows}/>
                     </div>}
                 </div>
                 
